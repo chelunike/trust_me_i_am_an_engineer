@@ -12,7 +12,10 @@ Repo del Grado de Ingenieria Informatica, Granada :)
  		- fp: Fundamentos de la Programación
  		- fs: Fundamentos del Software
  	- 2ª Cuatrimestre
- 		- Proximamente...
+ 		- es: Estadística
+ 		- lmd: Logica y Metodos Discretos
+ 		- mp: Metodologia de la Programción
+ 		- toc: Tecnologia y Organización de los Computadores
 ...
 
 ## In Develoment

@@ -2,20 +2,18 @@
 #define __PILA_H__
 
 typedef char Tbase;
-
-struct CeldaPila {
-	Tbase elemento;
-	CeldaPila* sig;
-};
+const int TAM = 10;
 
 class Pila {
 	
 	private:
-		CeldaPila* primera;
+		Tbase *datos;
+		int nelem;
+		int reservados;
 
 	public:
 		
-		Pila();
+		Pila(int tam=TAM);
 		
 		Pila(const Pila & p);
 		
@@ -39,10 +37,10 @@ class Pila {
 
 
 	private:
+		void resize(int n);
 		void copy(const Pila &p);
-		
 		void liberar();
-		
+		void reservar(int n);
 };
 
 #endif /* pila_h */

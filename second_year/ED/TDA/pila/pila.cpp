@@ -1,51 +1,78 @@
+
+#include <cstring>
 #include <cassert>
+
 #include "pila.h"
 
 
-//No se incluyen constructores, destructor ni operador de asignación
 Pila::Pila() {
-	datos = new Tbase[TAM];
-	nelem = 0;
+	primera = 0;	
 }
 
+Pila::Pila(const Pila & p) {
+	copiar(p);
+}
 
 Pila::~Pila() {
-	del(datos);
+	liberar();
 }
 
 Pila & Pila::operator=(const Pila &p) {
-	nelem = p.nelem;
-	for (int i = 0; i < p.nelem; ++i) {
-		datos[i] = p.datos[i];
+	if (this != &p) {
+		liberar();
+		copiar(p);
 	}
-	return (*this);
+	return *this;
 }
 
 bool Pila::vacia() const {
-	return (nelem == 0);
+	return (primera == 0);
 }
 
 void Pila::poner(const Tbase &c) {
-	assert(nelem < TAM);
-	datos[nelem++] = c;
+	CeldaPila* aux = new CeldaPila;
+	aux->elemento = c;
+	aux->sig = primera;
+	primera = aux;
 }
 
 void Pila::quitar() {
-	assert(nelem > 0);
-	nelem--;
+	CeldaPila* aux = primera;
+	if (primera->sig != 0)
+		primera = primera->sig;
+	else
+		primera = 0;
+	delete aux;
 }
 
 Tbase & Pila::tope() {
-	assert(nelem > 0);
-	return datos[nelem-1];
+	return primera->elemento;
 }
 
 const Tbase & Pila::tope() const {
-	assert(nelem > 0);
-	return tope();
+	return primera->elemento;
 }
 
 void Pila::copy(const Pila &p) {
+	liberar();
+	pila = Pila();
 	
+	while (!p.vacia()) {
+		pila.poner(p.tope());
+		p.quitar();
+	}
+
+	while(!pila.vacia()) {
+		poner(pila.tope());
+		p.poner(pila.tope());
+		pila.quitar(());
+	}
+
 }
+
+void Pila::liberar() {
+	while(!vacia())
+		quitar();
+}
+
 
